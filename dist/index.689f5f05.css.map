@@ -1,0 +1,1 @@
+{"mappings":"AAAA","sources":["global.css"],"sourcesContent":[":root {\n  /* fonts */\n  --font-noto-sans: \"Noto Sans\";\n\n  /* Colors */\n  --color-black: #000;\n  --color-white: #fff;\n}\n"],"names":[],"version":3,"file":"index.689f5f05.css.map","sourceRoot":"/__parcel_source_root/"}

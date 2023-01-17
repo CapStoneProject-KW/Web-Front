@@ -1,0 +1,348 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+body {
+  margin: 0;
+  line-height: normal;
+}
+.b {
+  position: absolute;
+  top: 34px;
+  left: 351px;
+  display: inline-block;
+  font-family: var(--font-noto-sans);
+}
+.rectangle-div,
+.rectangle-icon,
+.rectangle-icon1 {
+  position: absolute;
+  top: 224px;
+  left: 26px;
+  height: 742px;
+}
+
+
+.rectangle-div {
+  position: relative;
+  top: 224px;
+  left: 26px;
+  border-radius: var(--br-md);
+  background-color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  width: 1388px;
+  mix-blend-mode: multiply;
+  display: flex;
+}
+
+
+.original-div{
+  position: relative;
+  /*border: 1px red solid;*/
+  border-radius: 44px 0 0 44px;
+  width: 49%;
+  height: 100%;
+
+}
+
+.original-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 44px 0 0 44px;
+}
+
+.mine-div{
+  position: relative;
+  /*border: 1px red solid;*/
+  border-radius: 0 44px 44px 0;
+  width: 51%;
+  height: 100%;
+}
+
+.myCam{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 0 44px 44px 0;
+}
+
+
+.rectangle-icon,
+.rectangle-icon1 {
+  border-radius: var(--br-md) 0 0 var(--br-md);
+  width: 694px;
+  object-fit: cover;
+}
+.rectangle-icon1 {
+  left: 720px;
+  border-radius: 0 var(--br-md) var(--br-md) 0;
+}
+.div1 {
+  top: 153px;
+  left: 220px;
+  font-weight: 300;
+  display: inline-block;
+  width: 176px;
+  height: 61px;
+}
+.div1,
+.div2,
+.line-div {
+  position: absolute;
+}
+.div2 {
+  top: 153px;
+  left: 1034px;
+  font-weight: 300;
+  display: inline-block;
+  width: 136px;
+  height: 61px;
+}
+.line-div {
+  top: 225px;
+  left: 700px;
+  border-right: 10px solid var(--color-black);
+  box-sizing: border-box;
+  width: 20px;
+  height: 744px;
+}
+.rectangle-div1,
+.rectangle-div2,
+.rectangle-div3,
+.rectangle-div4,
+.rectangle-div5 {
+  position: absolute;
+  top: 640px;
+  left: 193px;
+  background-color: var(--color-gray-200);
+  border: 10px solid #d9d9d9;
+  box-sizing: border-box;
+  width: 173px;
+  height: 228px;
+  cursor: pointer;
+}
+.rectangle-div2,
+.rectangle-div3,
+.rectangle-div4,
+.rectangle-div5 {
+  top: 535px;
+  left: 297px;
+  border: 10px solid #d9d9d9;
+  width: 99px;
+  height: 308px;
+  cursor: pointer;
+}
+.rectangle-div3,
+.rectangle-div4,
+.rectangle-div5 {
+  top: 392px;
+  left: 912px;
+  width: 122px;
+  height: 496px;
+  cursor: pointer;
+}
+.rectangle-div4,
+.rectangle-div5 {
+  top: 631px;
+  left: 366px;
+  border: 10px solid #d9d9d9;
+  width: 102px;
+  height: 237px;
+  cursor: pointer;
+}
+.rectangle-div5 {
+  top: 516px;
+  left: 1001px;
+  width: 169px;
+  height: 372px;
+  cursor: pointer;
+}
+.rectangle-div10,
+.rectangle-div6,
+.rectangle-div7,
+.rectangle-div8,
+.rectangle-div9 {
+  position: absolute;
+  top: 535px;
+  left: 417px;
+  background-color: var(--color-gray-200);
+  border: 10px solid #d9d9d9;
+  box-sizing: border-box;
+  width: 102px;
+  height: 333px;
+  cursor: pointer;
+}
+.rectangle-div10,
+.rectangle-div7,
+.rectangle-div8,
+.rectangle-div9 {
+  top: 392px;
+  left: 1090px;
+  width: 120px;
+  height: 496px;
+  cursor: pointer;
+}
+.rectangle-div10,
+.rectangle-div8,
+.rectangle-div9 {
+  top: 640px;
+  left: 468px;
+  border: 10px solid #d9d9d9;
+  width: 102px;
+  height: 228px;
+  cursor: pointer;
+}
+.rectangle-div10,
+.rectangle-div9 {
+  top: 544px;
+  left: 1191px;
+  width: 175px;
+  height: 344px;
+  cursor: pointer;
+}
+.rectangle-div10 {
+  top: 516px;
+  left: 739px;
+  border: 10px solid #d9d9d9;
+  width: 232px;
+  height: 372px;
+  cursor: pointer;
+}
+.div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-maplestory);
+}
+
+/*
+.window{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  !*z-index: 1000;*!
+
+  !* 숨기기 *!
+  z-index: -1;
+  opacity: 0;
+}
+
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+
+  !* 임시 지정 *!
+  width: 100px;
+  height: 100px;
+
+  !* 초기에 약간 아래에 배치 *!
+  !*transform: translate(-50%, -40%);*!
+}
+*/
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal .bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modalBox {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  background-color: lightgray;
+  transition: all .5s;
+  border-radius: 10px;
+  width: 400px;
+  height: 200px;
+  padding: 15px;
+}
+
+.modalBox button {
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.modalText{
+  text-align: center;
+  font-family: var(--font-maplestory);
+}
+
+.inputText{
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  width : 300px;
+  height : 50px;
+  font-size : 20px;
+  border-radius: 10px;
+}
+
+#close{
+  position: absolute;
+  width : 100px;
+  height : 30px;
+  top: 70%;
+  left: 37%;
+}
+
+#result1,#result2,#result3,#result4,#result5{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  font-size: 30px;
+}
+
+.next{
+  position: absolute;
+  right: 500px;
+  display: inline;
+  margin: 100px;
+}
+
+.pointer-img {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}

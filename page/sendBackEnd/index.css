@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.b {
+  position: absolute;
+  top: 34px;
+  left: 235px;
+  display: inline-block;
+  font-family: var(--font-noto-sans);
+}
+.rectangle-icon,
+.rectangle-icon1 {
+  position: absolute;
+  top: 232px;
+  left: 720px;
+  border-radius: 0 var(--br-md) var(--br-md) 0;
+  width: 694px;
+  height: 742px;
+  object-fit: cover;
+}
+.rectangle-icon1 {
+  left: 26px;
+  border-radius: var(--br-md) 0 0 var(--br-md);
+}
+.div {
+  top: 153px;
+  left: 220px;
+  font-weight: 300;
+  display: inline-block;
+  width: 176px;
+  height: 61px;
+}
+.div,
+.div1,
+.line-div {
+  position: absolute;
+}
+.div1 {
+  top: 153px;
+  left: 1034px;
+  font-weight: 300;
+  display: inline-block;
+  width: 136px;
+  height: 61px;
+}
+.line-div {
+  top: 214px;
+  left: 701px;
+  border-right: 10px solid var(--color-black);
+  box-sizing: border-box;
+  width: 20px;
+  height: 762px;
+}
+.rectangle-div {
+  position: absolute;
+  top: 224px;
+  left: 26px;
+  border-radius: var(--br-md);
+  background-color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  width: 1388px;
+  height: 742px;
+  mix-blend-mode: multiply;
+}
+.ellipse-icon,
+.ellipse-icon1 {
+  position: absolute;
+  top: 459px;
+  left: 617px;
+  width: 206px;
+  height: 206px;
+}
+.ellipse-icon1 {
+  top: 473px;
+  left: 632px;
+  width: 177px;
+  height: 177px;
+  cursor: pointer;
+}
+.div2 {
+  position: absolute;
+  top: 531px;
+  left: 652px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136px;
+  height: 61px;
+}
+.detection-div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-maplestory);
+}

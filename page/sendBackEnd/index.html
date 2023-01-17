@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <title></title>
+
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto Sans:ital,wght@0,700;1,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Maplestory:wght@300&display=swap"
+    />
+  </head>
+  <body>
+    <div class="detection-div">
+      <b class="b">완료되었으면 ‘전송’ 버튼을 눌러 다음 단계로 이동해주세요.</b
+      ><img class="rectangle-icon" alt="" src="../../component/rectangle-8@2x.png" />
+      <img
+        class="rectangle-icon1"
+        alt=""
+        src="../../component/rectangle-9@2x.png"
+      />
+      <div class="div">비교 영상</div>
+      <div class="div1">내 화면</div>
+      <div class="line-div"></div>
+      <div class="rectangle-div"></div>
+      <img class="ellipse-icon" alt="" src="../../component/ellipse-5.svg" />
+      <img
+        class="ellipse-icon1"
+        alt=""
+        src="../../component/ellipse-4.svg"
+        id="ellipse1"
+      />
+      <div class="div2">전송</div>
+    </div>
+
+    <script>
+      var ellipse1 = document.getElementById("ellipse1");
+      if (ellipse1) {
+        ellipse1.addEventListener("click", function (e) {
+          location.href = "../matchPerson/index.html";
+        });
+      }
+      </script>
+  </body>
+</html>

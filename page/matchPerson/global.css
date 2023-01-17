@@ -1,0 +1,22 @@
+:root {
+  /* fonts */
+  --font-maplestory: Maplestory;
+  --font-noto-sans: "Noto Sans";
+
+  /* font sizes */
+  --font-size-base: 40px;
+
+  /* Colors */
+  --color-gray-100: #f2f2f2;
+  --color-gray-200: rgba(217, 217, 217, 0);
+  --color-red: #ff0000;
+  --color-yellow: #faff00;
+  --color-orange: #ff9900;
+  --color-green: #00ff57;
+  --color-teal: #00b2ff;
+  --color-black: #000;
+  --color-white: #fff;
+
+  /* border radiuses */
+  --br-md: 44px;
+}

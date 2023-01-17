@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.b2 {
+  position: absolute;
+  top: 34px;
+  left: 351px;
+  display: inline-block;
+  font-family: var(--font-noto-sans);
+}
+.rectangle-div19 {
+  position: absolute;
+  top: 224px;
+  left: 26px;
+  border-radius: var(--br-md);
+  background-color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  width: 1388px;
+  height: 742px;
+  mix-blend-mode: multiply;
+}
+.rectangle-icon7,
+.rectangle-icon8 {
+  position: absolute;
+  top: 224px;
+  left: 26px;
+  border-radius: var(--br-md) 0 0 var(--br-md);
+  width: 694px;
+  height: 742px;
+  object-fit: cover;
+}
+.rectangle-icon8 {
+  left: 720px;
+  border-radius: 0 var(--br-md) var(--br-md) 0;
+}
+.div16,
+.div17 {
+  position: absolute;
+  top: 153px;
+  left: 220px;
+  font-weight: 300;
+  display: inline-block;
+  width: 176px;
+  height: 61px;
+}
+.div17 {
+  left: 1034px;
+  width: 136px;
+}
+.line-div1 {
+  position: absolute;
+  top: 214px;
+  left: 701px;
+  border-right: 10px solid var(--color-black);
+  box-sizing: border-box;
+  width: 20px;
+  height: 762px;
+}
+.rectangle-div20,
+.rectangle-div21,
+.rectangle-div22,
+.rectangle-div23,
+.rectangle-div24 {
+  position: absolute;
+  top: 640px;
+  left: 193px;
+  background-color: var(--color-gray-500);
+  border: 10px solid var(--color-red);
+  box-sizing: border-box;
+  width: 173px;
+  height: 228px;
+}
+.rectangle-div21,
+.rectangle-div22,
+.rectangle-div23,
+.rectangle-div24 {
+  top: 535px;
+  left: 297px;
+  border: 10px solid var(--color-teal);
+  width: 99px;
+  height: 308px;
+}
+.rectangle-div22,
+.rectangle-div23,
+.rectangle-div24 {
+  top: 392px;
+  left: 912px;
+  width: 122px;
+  height: 496px;
+}
+.rectangle-div23,
+.rectangle-div24 {
+  top: 631px;
+  left: 366px;
+  border: 10px solid var(--color-green);
+  width: 102px;
+  height: 237px;
+}
+.rectangle-div24 {
+  top: 516px;
+  left: 1001px;
+  width: 169px;
+  height: 372px;
+}
+.rectangle-div25,
+.rectangle-div26,
+.rectangle-div27,
+.rectangle-div28,
+.rectangle-div29 {
+  position: absolute;
+  top: 535px;
+  left: 417px;
+  background-color: var(--color-gray-500);
+  border: 10px solid var(--color-orange);
+  box-sizing: border-box;
+  width: 102px;
+  height: 333px;
+}
+.rectangle-div26,
+.rectangle-div27,
+.rectangle-div28,
+.rectangle-div29 {
+  top: 392px;
+  left: 1090px;
+  width: 120px;
+  height: 496px;
+}
+.rectangle-div27,
+.rectangle-div28,
+.rectangle-div29 {
+  top: 640px;
+  left: 468px;
+  border: 10px solid var(--color-yellow);
+  width: 102px;
+  height: 228px;
+}
+.rectangle-div28,
+.rectangle-div29 {
+  top: 544px;
+  left: 1191px;
+  width: 175px;
+  height: 344px;
+}
+.rectangle-div29 {
+  top: 516px;
+  left: 739px;
+  border: 10px solid var(--color-red);
+  width: 232px;
+  height: 372px;
+}
+.div15 {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-maplestory);
+}

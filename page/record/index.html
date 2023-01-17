@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title></title>
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto Sans:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Maplestory:wght@300&display=swap"
+    />
+  </head>
+  <body>
+    <div class="detection-div">
+      <b class="b">준비가 되었으면 ‘녹화’ 버튼을 눌러주세요</b>
+
+      <div class="div">비교 영상
+      <div class="timer">
+
+      </div>
+      </div>
+
+
+
+      <div class="div1">내 화면</div>
+      <div class="line-div"></div>
+      <div class="rectangle-div">
+        <div class="original-div">
+<!--          <img src="../../component/youtubeExam.PNG"
+          class="original-image"
+          >-->
+<!--         <iframe class="original-image"
+                  src="https://www.youtube.com/embed/8x43gsnkBH8"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+          </iframe>-->
+
+          <div id="player" class="original-image"></div>
+
+        </div>
+
+        <div class="mine-div">
+          <video autoplay="true" class="myCam" id="videoElement">
+          </video>
+        </div>
+      </div>
+
+      <img class="ellipse-icon" alt="" src="../../component/ellipse-3.svg" />
+      <img
+        class="ellipse-icon1"
+        alt=""
+        src="../../component/ellipse-2.svg"
+        id="ellipse1"
+      />
+<!--      <h4 class="div2">전송</h4>-->
+      <div class="div2" id="recordBtn">녹화</div>
+    </div>
+
+<!--    <script src="http://www.youtube.com/player_api"></script>-->
+    <script>
+
+      let ellipse1 = document.getElementById("ellipse1");
+      let record = document.getElementById("recordBtn")
+      let video = document.querySelector("#videoElement");
+
+      //youtube API 불러오는 부분
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      let mediaStream = null;
+      let mediaRecorder = null;
+      let recordedMediaUrl = null;
+
+      //플레이어 변수 설정
+      var player;
+
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                mediaStream = stream;
+              video.srcObject = stream;
+              video.onloadedmetadata = function(e){
+                  video.play();
+              }
+                })
+                .catch(function (err0r) {
+                  console.log("Something went wrong!");
+                });
+      }
+
+
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          //width&height를 설정할 수 있으나, 따로 css영역으로 뺐다.
+          videoId: '8x43gsnkBH8',
+          events: {
+            'onReady': onPlayerReady,//로딩중에 이벤트 실행한다
+            'onStateChange': onPlayerStateChange//플레이어 상태 변화 시 이벤트를 실행한다.
+          }
+        });
+      }
+
+
+
+      /** 함수 ) 로딩된 후에 실행될 동작을 작성한다(소리 크기,동영상 속도를 미리 지정하는 것등등...) **/
+      function onPlayerReady(event) {
+
+
+        /** ------ 녹화 버튼을 클릭했을때 => 영상 재생 + 화면 녹화 **/
+        if (ellipse1 || record) {
+          ellipse1.addEventListener("click", function (e) {
+            // Please sync "1대 1 매칭 화면(바운딩 박스 매칭 및 라벨링)" to the project
+            // event.target.playVideo();//자동재생
+
+
+            //3,2,1 카운트 다운으로 text 변환 함수
+              function setText(){
+                  document.querySelector('.timer').innerText = sec--;
+              }
+            var sec = 3;
+            setText(); // 카운트 다운 모드
+
+            // 0.01초 간격으로 3초 동안 text 변
+            var intervalID = setInterval(setText, 1000);
+
+            setTimeout(function(){
+              clearInterval(intervalID);
+              document.querySelector('.timer').innerHTML = ""
+              event.target.playVideo();
+
+            }, 3000);
+
+
+
+            /** 12초 있다가 자동으로 다음 화면으로 넘어가기 => 시연영상에서 썻던 것 **/
+            /*setTimeout(function(){
+                location.href="../sendBackEnd/index.html"
+            },12000)*/
+
+
+
+
+          });
+
+        }
+      }
+
+      var done = false;
+
+      let mediaData = [];
+
+      function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING && !done) {
+          done = true;
+          //플레이어가 재생중일 때 작성한 동작이 실행된다.
+
+            /** 녹화할 화면의 데이터를 담을 미디어 데이터 버퍼 **/
+
+
+
+            /** MediaStream을 매개변수로 MediaRecorder 생성자를 호출 **/
+            mediaRecorder = new MediaRecorder(mediaStream, {
+                mimeType: 'video/webm;',
+            });
+
+            /** 전달받는 데이터를 처리하는 이벤트 핸들러 등록 **/
+            mediaRecorder.ondataavailable = function(event){
+                if(event.data && event.data.size > 0){
+                    mediaData.push(event.data);
+                }
+            }
+
+
+
+            /** 녹화 중지 이벤트 핸들러 **/
+            mediaRecorder.onstop = function(){
+
+                if (recordedMediaUrl) {
+                    URL.revokeObjectURL(recordedMediaUrl);
+                }
+
+                const blob = new Blob(mediaData,{type:'video/webm;'});
+                recordedMediaUrl = URL.createObjectURL(blob);
+                console.log(recordedMediaUrl)
+                video.src = recordedMediaUrl;
+            }
+
+            mediaRecorder.start();
+
+            /** 12초 이후 녹화 중지 **/
+            setTimeout(function(){
+                mediaRecorder.onstop();
+                mediaRecorder = null;
+
+                /** 영상 다운로드 **/
+                const link = document.createElement("a");
+                document.body.appendChild(link);
+
+                //녹화된 영상의 URL을 href 속성으로 설정
+                link.href = recordedMediaUrl;
+
+                // 저장할 파일명 설정
+                link.download = "video.webm";
+
+                link.click();
+                document.body.removeChild(link);
+
+            },12000)
+        }
+      }
+
+
+      </script>
+  </body>
+</html>

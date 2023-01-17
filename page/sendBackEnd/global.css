@@ -1,0 +1,28 @@
+:root {
+  /* fonts */
+  --font-maplestory: Maplestory;
+  --font-noto-sans: "Noto Sans";
+
+  /* font sizes */
+  --font-size-sm: 24px;
+  --font-size-base: 40px;
+  --font-size-lg: 50px;
+
+  /* Colors */
+  --color-gray-100: #f2f2f2;
+  --color-gray-200: #d9d9d9;
+  --color-gray-300: #afdcdf;
+  --color-gray-400: rgba(255, 255, 255, 0);
+  --color-gray-500: rgba(217, 217, 217, 0);
+  --color-black: #000;
+  --color-white: #fff;
+  --color-red: #ff0000;
+  --color-turquoise: #00e5d8;
+  --color-yellow: #faff00;
+  --color-orange: #ff9900;
+  --color-green: #00ff57;
+  --color-teal: #00b2ff;
+
+  /* border radiuses */
+  --br-md: 44px;
+}

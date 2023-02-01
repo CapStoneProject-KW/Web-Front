@@ -81,6 +81,9 @@
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      const videoID = localStorage.getItem("id");
+      console.log(videoID);
+
 
       let mediaStream = null;
       let videoRecorder = null;
@@ -170,7 +173,7 @@
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 //width&height를 설정할 수 있으나, 따로 css영역으로 뺐다.
-                videoId: '8x43gsnkBH8',
+                videoId: videoID,
                 events: {
                     'onReady': onPlayerReady,//로딩중에 이벤트 실행한다
                     'onStateChange': onPlayerStateChange//플레이어 상태 변화 시 이벤트를 실행한다.

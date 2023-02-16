@@ -31,29 +31,35 @@
       <div class="div2">내 화면</div>
       <div class="line-div"></div>
       <div class="rectangle-div">
-        <div class="original-div">
-
-<!--          <img src="../../component/youtubeExam.PNG"-->
-<!--               class="original-image"-->
-<!--          >-->
-
-            <img src="../../component/original-image-start.png"
-                 class="original-image" >
-<!--
-          <img src="../../component/demo-Image-bound.png"
-          class="original-image" >-->
-            <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>
-        </div>
+          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>
+          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>
 
 
-        <div class="mine-div">
-            <img src="../../component/my-image-start.png"
-                 class="myCam" >
-        </div>
+<!--        <div class="original-div">-->
+
+<!--&lt;!&ndash;          <img src="../../component/youtubeExam.PNG"&ndash;&gt;-->
+<!--&lt;!&ndash;               class="original-image"&ndash;&gt;-->
+<!--&lt;!&ndash;          >&ndash;&gt;-->
+
+<!--            <img src="../../component/original-image-start.png"-->
+<!--                 class="original-image" >-->
+<!--&lt;!&ndash;-->
+<!--          <img src="../../component/demo-Image-bound.png"-->
+<!--          class="original-image" >&ndash;&gt;-->
+
+<!--        </div>-->
+
+
+<!--        <div class="mine-div">-->
+<!--            <img src="../../component/my-image-start.png"-->
+<!--                 class="myCam" >-->
+<!--        </div>-->
+
+
 
       </div>
 
-      <div class="rectangle-div1" id="rect1"></div>
+  <!--    <div class="rectangle-div1" id="rect1"></div>
       <div class="rectangle-div2" id="rect2"></div>
       <div class="rectangle-div3" id="rect3">
           <div id='result2'></div>
@@ -72,7 +78,7 @@
       </div>
       <div class="rectangle-div10" id="rect10">
           <div id='result1'></div>
-      </div>
+      </div>-->
 
         <div class="next">
             <img src="../../component/img.png"
@@ -101,46 +107,95 @@
 
     <script>
 
+        /** detection 할 떄 이미지의 비율과 웹상에서 보여주는 이미지의 비율이 다르니 웹 비율에 맞게 어느정도 보정을 해야함 **/
+
         let boundInfo = {
             "1": {
-                "x1": 89.73,
-                "y1": 272.25,
-                "w": 127.05,
-                "h": 345.38,
+                "x1": 99.73,
+                "y1": 115.25,
+                "w": 62.05,
+                "h": 57.38,
                 "s": 0.91
             },
             "2": {
-                "x1": 194.0,
-                "y1": 271.12,
-                "w": 100.69,
-                "h": 355.5,
+                "x1": 132.0,
+                "y1": 81.12,
+                "w": 60.69,
+                "h": 85.5,
                 "s": 0.92
             }
         }
 
-        const setCanvas = (boundInfo) =>{
+        let boundInfo2 = {
+            "1": {
+                "x1": 9.73,
+                "y1": 85.25,
+                "w": 122.05,
+                "h": 97.38,
+                "s": 0.91
+            },
+            "2": {
+                "x1": 102.0,
+                "y1": 51.12,
+                "w": 70.69,
+                "h": 125.5,
+                "s": 0.92
+            }
+        }
+
+        const setCanvas = (boundInfo,boundInfo2) =>{
             let canvas = document.getElementById('canvas');
-            if(canvas.getContext){
+            let canvas2 = document.getElementById('canvas2');
+            if(canvas.getContext && canvas2.getContext){
                 let ctx = canvas.getContext('2d');
+                let ctx2 = canvas2.getContext('2d');
+
                 let imageObj = new Image();
+                let imageObj2 = new Image();
+
                 imageObj.onload = function(){
                     canvas.width=360;
                     canvas.height=203;
                     ctx.drawImage(imageObj, 0, 0, 360, 203);
 
+
+
                     Object.keys(boundInfo).forEach((ele,index)=>{
-                        ctx.strokeStyle = "yellow";
+                        ctx.beginPath();
+                        ctx.strokeStyle = "rgb(999,999,999)";
                         ctx.lineWidth = 3;
                         console.log(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
+                        // ctx.fillStyle = "rgb(0,0,0)"
                         ctx.strokeRect(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
-                        ctx.fill();
+                        // ctx.fill();
                     });
 
                 };
+                imageObj.src = "../../component/original-image-start.png"
+
+                imageObj2.onload = function(){
+                    canvas2.width=360;
+                    canvas2.height=203;
+                    ctx2.drawImage(imageObj2, 0, 0, 360, 203);
+
+
+
+                    Object.keys(boundInfo2).forEach((ele,index)=>{
+                        ctx2.beginPath();
+                        ctx2.strokeStyle = "rgb(999,999,999)";
+                        ctx2.lineWidth = 3;
+                        console.log(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
+                        // ctx.fillStyle = "rgb(0,0,0)"
+                        ctx2.strokeRect(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
+                        // ctx.fill();
+                    });
+
+                };
+                imageObj2.src = "../../component/my-image-start.png"
             }
         }
 
-        setCanvas(boundInfo)
+        setCanvas(boundInfo,boundInfo2)
 
         const open = (result) => {
             document.querySelector(".modal").classList.remove("hidden");

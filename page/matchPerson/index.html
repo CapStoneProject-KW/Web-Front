@@ -19,7 +19,7 @@
     />
   </head>
   <body>
-    <div class="div">
+    <div class="div" id="firstDiv">
       <b class="b">각자의 역할에 맞춰 비교대상을 매치해주세요</b>
 <!--      <div class="div1">비교 영상</div>-->
 <!--      <div class="div2">내 화면</div>-->
@@ -111,10 +111,10 @@
 
         let boundInfo = {
             "1": {
-                "x1": 99.73,
-                "y1": 115.25,
-                "w": 62.05,
-                "h": 57.38,
+                "x1": 629.73,
+                "y1": 205.25,
+                "w": 132.05,
+                "h": 237.38,
                 "s": 0.91
             },
             "2": {
@@ -202,35 +202,25 @@
 
         function makeBox(boundInfo){
             let boundingBox = document.createElement("div");
-            let rectDiv = document.getElementsByClassName(".div")
+            let rectDiv = document.getElementById("firstDiv")
             console.log(boundingBox);
+            console.log(rectDiv);
             boundingBox.id = 'rect1'
             boundingBox.style.position = "absolute";
-            boundingBox.style.top = `${boundInfo["1"].x1}`
+            boundingBox.style.top = `${boundInfo["1"].x1}px`
             console.log(`${boundInfo["1"].x1}`);
-            boundingBox.style.left = `${boundInfo["1"].y1}`
-            boundingBox.style.width = `${boundInfo["1"].w}`
-            boundingBox.style.height = `${boundInfo["1"].h}`
-            boundingBox.style.backgroundColor = "white"
+            boundingBox.style.left = `${boundInfo["1"].y1}px`
+            boundingBox.style.width = `${boundInfo["1"].w}px`
+            boundingBox.style.height = `${boundInfo["1"].h}px`
+            // boundingBox.style.backgroundColor = "white"
             boundingBox.style.boxSizing = "border-box"
             boundingBox.style.border = "10px solid #d9d9d9"
+            boundingBox.style.cursor = "pointer"
 
             rectDiv.appendChild(boundingBox)
 
         }
-        window.onload = function (){
-            let boundingBox = document.createElement("div");
-            boundingBox.id = 'rect1'
-            boundingBox.style.position = "absolute";
-            boundingBox.style.top = `${boundInfo["1"].x1}`
-            console.log(`${boundInfo["1"].x1}`);
-            boundingBox.style.left = `${boundInfo["1"].y1}`
-            boundingBox.style.width = `${boundInfo["1"].w}`
-            boundingBox.style.height = `${boundInfo["1"].h}`
-            boundingBox.style.backgroundColor = "white"
-            boundingBox.style.boxSizing = "border-box"
-            boundingBox.style.border = "10px solid #d9d9d9"
-        }
+
         makeBox(boundInfo);
 
         let boundingBox = document.getElementById("rect1");
@@ -248,6 +238,15 @@
          *   height: 228px;
          *   cursor: pointer;
          * **/
+
+        let rect1 = document.getElementById("rect1")
+
+        rect1.addEventListener("click", function (e) {
+            // 각각의 바운딩 박스를 매칭
+            console.log(rect1.className)
+            rect1.style.border = '10px solid var(--color-red)';
+        });
+
 
         const open = (result) => {
             document.querySelector(".modal").classList.remove("hidden");

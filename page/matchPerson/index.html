@@ -31,29 +31,29 @@
       <div class="div2">내 화면</div>
       <div class="line-div"></div>
       <div class="rectangle-div">
-          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>
-          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>
+<!--          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>-->
+<!--          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>-->
 
 
-<!--        <div class="original-div">-->
+        <div class="original-div">
 
-<!--&lt;!&ndash;          <img src="../../component/youtubeExam.PNG"&ndash;&gt;-->
-<!--&lt;!&ndash;               class="original-image"&ndash;&gt;-->
-<!--&lt;!&ndash;          >&ndash;&gt;-->
+<!--          <img src="../../component/youtubeExam.PNG"-->
+<!--               class="original-image"-->
+<!--          >-->
 
-<!--            <img src="../../component/original-image-start.png"-->
-<!--                 class="original-image" >-->
-<!--&lt;!&ndash;-->
-<!--          <img src="../../component/demo-Image-bound.png"-->
-<!--          class="original-image" >&ndash;&gt;-->
+            <img src="../../component/original-image-start.png"
+                 class="original-image" >
+<!--
+          <img src="../../component/demo-Image-bound.png"
+          class="original-image" >-->
 
-<!--        </div>-->
+        </div>
 
 
-<!--        <div class="mine-div">-->
-<!--            <img src="../../component/my-image-start.png"-->
-<!--                 class="myCam" >-->
-<!--        </div>-->
+        <div class="mine-div">
+            <img src="../../component/my-image-start.png"
+                 class="myCam" >
+        </div>
 
 
 
@@ -142,8 +142,8 @@
                 "s": 0.92
             }
         }
-
-        const setCanvas = (boundInfo,boundInfo2) =>{
+        /** 캔버스 방식 = 실패(why:: 캔버스는 그리는거라 클릭은 안됨) **/
+        /*const setCanvas = (boundInfo,boundInfo2) =>{
             let canvas = document.getElementById('canvas');
             let canvas2 = document.getElementById('canvas2');
             if(canvas.getContext && canvas2.getContext){
@@ -196,6 +196,58 @@
         }
 
         setCanvas(boundInfo,boundInfo2)
+*/
+
+        /** div 생성방식 **/
+
+        function makeBox(boundInfo){
+            let boundingBox = document.createElement("div");
+            let rectDiv = document.getElementsByClassName(".div")
+            console.log(boundingBox);
+            boundingBox.id = 'rect1'
+            boundingBox.style.position = "absolute";
+            boundingBox.style.top = `${boundInfo["1"].x1}`
+            console.log(`${boundInfo["1"].x1}`);
+            boundingBox.style.left = `${boundInfo["1"].y1}`
+            boundingBox.style.width = `${boundInfo["1"].w}`
+            boundingBox.style.height = `${boundInfo["1"].h}`
+            boundingBox.style.backgroundColor = "white"
+            boundingBox.style.boxSizing = "border-box"
+            boundingBox.style.border = "10px solid #d9d9d9"
+
+            rectDiv.appendChild(boundingBox)
+
+        }
+        window.onload = function (){
+            let boundingBox = document.createElement("div");
+            boundingBox.id = 'rect1'
+            boundingBox.style.position = "absolute";
+            boundingBox.style.top = `${boundInfo["1"].x1}`
+            console.log(`${boundInfo["1"].x1}`);
+            boundingBox.style.left = `${boundInfo["1"].y1}`
+            boundingBox.style.width = `${boundInfo["1"].w}`
+            boundingBox.style.height = `${boundInfo["1"].h}`
+            boundingBox.style.backgroundColor = "white"
+            boundingBox.style.boxSizing = "border-box"
+            boundingBox.style.border = "10px solid #d9d9d9"
+        }
+        makeBox(boundInfo);
+
+        let boundingBox = document.getElementById("rect1");
+        console.log(boundingBox);
+
+
+        /**
+         *   position: absolute;
+         *   top: 640px;
+         *   left: 193px;
+         *   background-color: var(--color-gray-200);
+         *   border: 10px solid #d9d9d9;
+         *   box-sizing: border-box;
+         *   width: 173px;
+         *   height: 228px;
+         *   cursor: pointer;
+         * **/
 
         const open = (result) => {
             document.querySelector(".modal").classList.remove("hidden");

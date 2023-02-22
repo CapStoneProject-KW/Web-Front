@@ -118,10 +118,24 @@
                 "s": 0.91
             },
             "2": {
-                "x1": 132.0,
-                "y1": 81.12,
-                "w": 60.69,
-                "h": 85.5,
+                "x1": 532.0,
+                "y1": 281.12,
+                "w": 100.69,
+                "h": 305.5,
+                "s": 0.92
+            },
+            "3": {
+                "x1":529.73,
+                "y1": 405.25,
+                "w": 132.05,
+                "h": 237.38,
+                "s": 0.91
+            },
+            "4": {
+                "x1": 632.0,
+                "y1": 331.12,
+                "w": 100.69,
+                "h": 305.5,
                 "s": 0.92
             }
         }
@@ -198,54 +212,111 @@
         setCanvas(boundInfo,boundInfo2)
 */
 
+        /** 매칭정보 초기화 (2차원 배열 초기화) **/
+
+        let totalLength = Object.keys(boundInfo).length + Object.keys(boundInfo2).length;
+
+        // let matchingKey = new Array(totalLength).fill(0).map(()=>new Array(0))
+        let matchingKey = []
+        console.log(matchingKey);
+
         /** div 생성방식 **/
+        let rectDiv = document.getElementById("firstDiv")
 
-        function makeBox(boundInfo){
-            let boundingBox = document.createElement("div");
-            let rectDiv = document.getElementById("firstDiv")
-            console.log(boundingBox);
-            console.log(rectDiv);
-            boundingBox.id = 'rect1'
-            boundingBox.style.position = "absolute";
-            boundingBox.style.top = `${boundInfo["1"].x1}px`
-            console.log(`${boundInfo["1"].x1}`);
-            boundingBox.style.left = `${boundInfo["1"].y1}px`
-            boundingBox.style.width = `${boundInfo["1"].w}px`
-            boundingBox.style.height = `${boundInfo["1"].h}px`
-            // boundingBox.style.backgroundColor = "white"
-            boundingBox.style.boxSizing = "border-box"
-            boundingBox.style.border = "10px solid #d9d9d9"
-            boundingBox.style.cursor = "pointer"
+        function makeBoundBox(boundInfo,second){
+            Object.keys(boundInfo).forEach((ele,index)=>{
 
-            rectDiv.appendChild(boundingBox)
+                let boundingBox = document.createElement("div");
+                if(second){
+                    boundingBox.id = 'Rect'+`${ele}`
+                }else{
+                    boundingBox.id = 'rect'+`${ele}`
+                }
+                boundingBox.style.position = "absolute";
+                boundingBox.style.top = `${boundInfo[`${ele}`].x1}px`
 
+                boundingBox.style.left = `${boundInfo[`${ele}`].y1}px`
+                boundingBox.style.width = `${boundInfo[`${ele}`].w}px`
+                boundingBox.style.height = `${boundInfo[`${ele}`].h}px`
+
+                boundingBox.style.boxSizing = "border-box"
+                boundingBox.style.border = "10px solid #d9d9d9"
+                boundingBox.style.cursor = "pointer"
+
+                rectDiv.appendChild(boundingBox);
+
+                let rect1;
+
+                if(second){
+                    rect1 = document.getElementById("Rect"+`${ele}`)
+                }else{
+                    rect1 = document.getElementById("rect"+`${ele}`)
+                }
+
+                console.log(rect1.id);
+
+                rect1.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect1.className)
+                    let key = `${rect1.id}`.split('t');
+                    console.log(key[1]);
+
+                    matchingKey.push(key[1])
+
+                    rect1.style.border = '10px solid var(--color-red)';
+                    console.log(matchingKey)
+                });
+            })
         }
 
-        makeBox(boundInfo);
+        makeBoundBox(boundInfo,false)
+        makeBoundBox(boundInfo2,true)
 
-        let boundingBox = document.getElementById("rect1");
-        console.log(boundingBox);
+        // 저장한 전체 데이터 2차원 배열로 묶기
+        if(matchingKey.length === totalLength){
+            let k = 0;
+            for(let i=0;i<totalLength;i++){
+                matchingKey[k].push([f])
+            }
+        }
+
+        /**
+         해야할 일
+         1. 매칭 데이터 2차원배열로 변환해서 백엔드에 전달해주기
+         2. 백엔드에서는 전달받은 데이터를 AI서버 측으로 전달해주기
+         **/
+
+
+
 
 
         /**
-         *   position: absolute;
-         *   top: 640px;
-         *   left: 193px;
-         *   background-color: var(--color-gray-200);
-         *   border: 10px solid #d9d9d9;
-         *   box-sizing: border-box;
-         *   width: 173px;
-         *   height: 228px;
-         *   cursor: pointer;
+         position: absolute;
+         top: 640px;
+         left: 193px;
+         background-color: var(--color-gray-200);
+         border: 10px solid #d9d9d9;
+         box-sizing: border-box;
+         width: 173px;
+         height: 228px;
+         cursor: pointer;
          * **/
 
-        let rect1 = document.getElementById("rect1")
+        // let rect1 = document.getElementById("rect1")
+        //
+        // rect1.addEventListener("click", function (e) {
+        //     // 각각의 바운딩 박스를 매칭
+        //     console.log(rect1.className)
+        //     rect1.style.border = '10px solid var(--color-red)';
+        // });
 
-        rect1.addEventListener("click", function (e) {
+      /*  let rect2 = document.getElementById("rect2");
+        rect2.addEventListener("click", function (e) {
             // 각각의 바운딩 박스를 매칭
-            console.log(rect1.className)
-            rect1.style.border = '10px solid var(--color-red)';
-        });
+            console.log(rect2.className)
+            rect2.style.border = '10px solid #00b2ff';
+
+        });*/
 
 
         const open = (result) => {

@@ -346,3 +346,16 @@ body {
   height: 100px;
   cursor: pointer;
 }
+
+#canvas {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+}
+
+#canvas2 {
+  position: absolute;
+  transform: translate(100%,0%); /* y축 위치 반전 */
+  width: 50%;
+  height: 100%;
+}

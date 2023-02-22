@@ -23,15 +23,34 @@
       <b class="b1">유튜브 링크:</b>
       <input class="rectangle-input" type="text" />
 <!--      <div class="line-div"></div>-->
-      <div class="rectangle-div2" id="rectangle"></div>
-      <b class="b2">업로드</b>
+      <div class="rectangle-div2" id="rectangle"><b style="font-size: xx-large">업로드</b></div>
     </div>
 
     <script>
+
+
+      const sendURL = async () =>{
+        let youtubeURL = document.querySelector(".rectangle-input").value;
+        let id = youtubeURL.split("=");
+        await localStorage.setItem("id",id[1]);
+        let data = {url:youtubeURL}
+        /** fetch로 POST 요청할 때 body는 stringify 해서 JSON을 직렬화해서 보낼 것 **/
+        await fetch("http://localhost:3000/index/video",{
+          method : "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body :JSON.stringify(data)
+        });
+
+      }
+
       let rectangle = document.getElementById("rectangle");
       if (rectangle) {
         rectangle.addEventListener("click", function (e) {
           // Please sync "정답영상/사용자 영상 동시 출력 및 녹화 시작" to the project
+          sendURL();
+          console.log(localStorage.getItem("id"))
           location.href = "./page/record/index.html"
         });
       }

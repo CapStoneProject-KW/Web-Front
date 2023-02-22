@@ -19,7 +19,7 @@
     />
   </head>
   <body>
-    <div class="div">
+    <div class="div" id="firstDiv">
       <b class="b">각자의 역할에 맞춰 비교대상을 매치해주세요</b>
 <!--      <div class="div1">비교 영상</div>-->
 <!--      <div class="div2">내 화면</div>-->
@@ -27,26 +27,39 @@
 <!--      -->
 
       <div class="div1">비교 화면</div>
+
       <div class="div2">내 화면</div>
       <div class="line-div"></div>
       <div class="rectangle-div">
+<!--          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>-->
+<!--          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>-->
+
+
         <div class="original-div">
+
 <!--          <img src="../../component/youtubeExam.PNG"-->
 <!--               class="original-image"-->
 <!--          >-->
 
-          <img src="../../component/original-image-start.png"
-          class="original-image" >
+            <img src="../../component/original-image-start.png"
+                 class="original-image" >
+<!--
+          <img src="../../component/demo-Image-bound.png"
+          class="original-image" >-->
+
         </div>
+
 
         <div class="mine-div">
             <img src="../../component/my-image-start.png"
                  class="myCam" >
         </div>
 
+
+
       </div>
 
-      <div class="rectangle-div1" id="rect1"></div>
+  <!--    <div class="rectangle-div1" id="rect1"></div>
       <div class="rectangle-div2" id="rect2"></div>
       <div class="rectangle-div3" id="rect3">
           <div id='result2'></div>
@@ -65,7 +78,7 @@
       </div>
       <div class="rectangle-div10" id="rect10">
           <div id='result1'></div>
-      </div>
+      </div>-->
 
         <div class="next">
             <img src="../../component/img.png"
@@ -94,6 +107,218 @@
 
     <script>
 
+        /** detection 할 떄 이미지의 비율과 웹상에서 보여주는 이미지의 비율이 다르니 웹 비율에 맞게 어느정도 보정을 해야함 **/
+
+        let boundInfo = {
+            "1": {
+                "x1": 629.73,
+                "y1": 205.25,
+                "w": 132.05,
+                "h": 237.38,
+                "s": 0.91
+            },
+            "2": {
+                "x1": 532.0,
+                "y1": 281.12,
+                "w": 100.69,
+                "h": 305.5,
+                "s": 0.92
+            },
+            "3": {
+                "x1":529.73,
+                "y1": 405.25,
+                "w": 132.05,
+                "h": 237.38,
+                "s": 0.91
+            },
+            "4": {
+                "x1": 632.0,
+                "y1": 331.12,
+                "w": 100.69,
+                "h": 305.5,
+                "s": 0.92
+            }
+        }
+
+        let boundInfo2 = {
+            "1": {
+                "x1": 9.73,
+                "y1": 85.25,
+                "w": 122.05,
+                "h": 97.38,
+                "s": 0.91
+            },
+            "2": {
+                "x1": 102.0,
+                "y1": 51.12,
+                "w": 70.69,
+                "h": 125.5,
+                "s": 0.92
+            }
+        }
+        /** 캔버스 방식 = 실패(why:: 캔버스는 그리는거라 클릭은 안됨) **/
+        /*const setCanvas = (boundInfo,boundInfo2) =>{
+            let canvas = document.getElementById('canvas');
+            let canvas2 = document.getElementById('canvas2');
+            if(canvas.getContext && canvas2.getContext){
+                let ctx = canvas.getContext('2d');
+                let ctx2 = canvas2.getContext('2d');
+
+                let imageObj = new Image();
+                let imageObj2 = new Image();
+
+                imageObj.onload = function(){
+                    canvas.width=360;
+                    canvas.height=203;
+                    ctx.drawImage(imageObj, 0, 0, 360, 203);
+
+
+
+                    Object.keys(boundInfo).forEach((ele,index)=>{
+                        ctx.beginPath();
+                        ctx.strokeStyle = "rgb(999,999,999)";
+                        ctx.lineWidth = 3;
+                        console.log(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
+                        // ctx.fillStyle = "rgb(0,0,0)"
+                        ctx.strokeRect(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
+                        // ctx.fill();
+                    });
+
+                };
+                imageObj.src = "../../component/original-image-start.png"
+
+                imageObj2.onload = function(){
+                    canvas2.width=360;
+                    canvas2.height=203;
+                    ctx2.drawImage(imageObj2, 0, 0, 360, 203);
+
+
+
+                    Object.keys(boundInfo2).forEach((ele,index)=>{
+                        ctx2.beginPath();
+                        ctx2.strokeStyle = "rgb(999,999,999)";
+                        ctx2.lineWidth = 3;
+                        console.log(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
+                        // ctx.fillStyle = "rgb(0,0,0)"
+                        ctx2.strokeRect(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
+                        // ctx.fill();
+                    });
+
+                };
+                imageObj2.src = "../../component/my-image-start.png"
+            }
+        }
+
+        setCanvas(boundInfo,boundInfo2)
+*/
+
+        /** 매칭정보 초기화 (2차원 배열 초기화) **/
+
+        let totalLength = Object.keys(boundInfo).length + Object.keys(boundInfo2).length;
+
+        // let matchingKey = new Array(totalLength).fill(0).map(()=>new Array(0))
+        let matchingKey = []
+        console.log(matchingKey);
+
+        /** div 생성방식 **/
+        let rectDiv = document.getElementById("firstDiv")
+
+        function makeBoundBox(boundInfo,second){
+            Object.keys(boundInfo).forEach((ele,index)=>{
+
+                let boundingBox = document.createElement("div");
+                if(second){
+                    boundingBox.id = 'Rect'+`${ele}`
+                }else{
+                    boundingBox.id = 'rect'+`${ele}`
+                }
+                boundingBox.style.position = "absolute";
+                boundingBox.style.top = `${boundInfo[`${ele}`].x1}px`
+
+                boundingBox.style.left = `${boundInfo[`${ele}`].y1}px`
+                boundingBox.style.width = `${boundInfo[`${ele}`].w}px`
+                boundingBox.style.height = `${boundInfo[`${ele}`].h}px`
+
+                boundingBox.style.boxSizing = "border-box"
+                boundingBox.style.border = "10px solid #d9d9d9"
+                boundingBox.style.cursor = "pointer"
+
+                rectDiv.appendChild(boundingBox);
+
+                let rect1;
+
+                if(second){
+                    rect1 = document.getElementById("Rect"+`${ele}`)
+                }else{
+                    rect1 = document.getElementById("rect"+`${ele}`)
+                }
+
+                console.log(rect1.id);
+
+                rect1.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect1.className)
+                    let key = `${rect1.id}`.split('t');
+                    console.log(key[1]);
+
+                    matchingKey.push(key[1])
+
+                    rect1.style.border = '10px solid var(--color-red)';
+                    console.log(matchingKey)
+                });
+            })
+        }
+
+        makeBoundBox(boundInfo,false)
+        makeBoundBox(boundInfo2,true)
+
+        // 저장한 전체 데이터 2차원 배열로 묶기
+        if(matchingKey.length === totalLength){
+            let k = 0;
+            for(let i=0;i<totalLength;i++){
+                matchingKey[k].push([f])
+            }
+        }
+
+        /**
+         해야할 일
+         1. 매칭 데이터 2차원배열로 변환해서 백엔드에 전달해주기
+         2. 백엔드에서는 전달받은 데이터를 AI서버 측으로 전달해주기
+         **/
+
+
+
+
+
+        /**
+         position: absolute;
+         top: 640px;
+         left: 193px;
+         background-color: var(--color-gray-200);
+         border: 10px solid #d9d9d9;
+         box-sizing: border-box;
+         width: 173px;
+         height: 228px;
+         cursor: pointer;
+         * **/
+
+        // let rect1 = document.getElementById("rect1")
+        //
+        // rect1.addEventListener("click", function (e) {
+        //     // 각각의 바운딩 박스를 매칭
+        //     console.log(rect1.className)
+        //     rect1.style.border = '10px solid var(--color-red)';
+        // });
+
+      /*  let rect2 = document.getElementById("rect2");
+        rect2.addEventListener("click", function (e) {
+            // 각각의 바운딩 박스를 매칭
+            console.log(rect2.className)
+            rect2.style.border = '10px solid #00b2ff';
+
+        });*/
+
+
         const open = (result) => {
             document.querySelector(".modal").classList.remove("hidden");
             globalResult = result;
@@ -115,6 +340,9 @@
         // let rect1 = document.getElementsByClassName("rectangle-div1");
         let isClose = false;
         let globalResult;
+
+        let nextPage = document.querySelector(".pointer-img");
+        /*
         let rect1 = document.getElementById("rect1")
         let rect2 = document.getElementById("rect2")
         let rect3 = document.getElementById("rect3")
@@ -126,78 +354,76 @@
         let rect9 = document.getElementById("rect9")
         let rect10 = document.getElementById("rect10")
 
-        let nextPage = document.querySelector(".pointer-img");
 
+                rect1.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect1.className)
+                    rect1.style.border = '10px solid var(--color-red)';
+                });
 
-        rect1.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect1.className)
-            rect1.style.border = '10px solid var(--color-red)';
-        });
+                rect2.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect2.className)
+                    rect2.style.border = '10px solid #00b2ff';
 
-        rect2.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect2.className)
-            rect2.style.border = '10px solid #00b2ff';
+                });
 
-        });
+                rect3.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect3.className)
+                    rect3.style.border = '10px solid #00b2ff';
+                    open('result2');
+                });
 
-        rect3.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect3.className)
-            rect3.style.border = '10px solid #00b2ff';
-            open('result2');
-        });
+                rect4.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect4.className)
+                    rect4.style.border = '10px solid #ff9900';
+                });
 
-        rect4.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect4.className)
-            rect4.style.border = '10px solid #ff9900';
-        });
+                rect5.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect5.className)
+                    rect5.style.border = '10px solid #ff9900';
+                    open('result3');
 
-        rect5.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect5.className)
-            rect5.style.border = '10px solid #ff9900';
-            open('result3');
+                });
 
-        });
+                rect6.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect6.className)
+                    rect6.style.border = '10px solid #00ff57';
+                });
 
-        rect6.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect6.className)
-            rect6.style.border = '10px solid #00ff57';
-        });
+                rect7.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect7.className)
+                    rect7.style.border = '10px solid #00ff57';
+                    open('result4');
 
-        rect7.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect7.className)
-            rect7.style.border = '10px solid #00ff57';
-            open('result4');
+                });
 
-        });
+                rect8.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect8.className)
+                    rect8.style.border = '10px solid var(--color-yellow)';
+                });
 
-        rect8.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect8.className)
-            rect8.style.border = '10px solid var(--color-yellow)';
-        });
+                rect9.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect9.className)
+                    rect9.style.border = '10px solid var(--color-yellow)';
+                    open('result5');
 
-        rect9.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect9.className)
-            rect9.style.border = '10px solid var(--color-yellow)';
-            open('result5');
+                });
 
-        });
+                rect10.addEventListener("click", function (e) {
+                    // 각각의 바운딩 박스를 매칭
+                    console.log(rect10.className)
+                    rect10.style.border = '10px solid var(--color-red)';
+                    open('result1');
 
-        rect10.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect10.className)
-            rect10.style.border = '10px solid var(--color-red)';
-            open('result1');
-
-        });
+                });*/
 
         function printName()  {
             let name = document.getElementById('name').value;

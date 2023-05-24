@@ -14,6 +14,7 @@ body {
   position: absolute;
   display: inline-block;
   font-family: var(--font-noto-sans);
+  font-weight: bold;
 }
 .b {
   top: 187px;
@@ -82,6 +83,7 @@ body {
   letter-spacing: 0.08em;
   font-weight: 300;
   display: inline-block;
+  font-weight: bold;
 }
 .div2 {
   top: 394px;

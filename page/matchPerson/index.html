@@ -30,59 +30,65 @@
 
       <div class="div2">내 화면</div>
       <div class="line-div"></div>
-      <div class="rectangle-div">
-<!--          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>-->
-<!--          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>-->
+        <div class="whole-rect">
+            <div class="rectangle-div">
+                <!--          <canvas id='canvas'>Your browswer does not support HTML5 canvas</canvas>-->
+                <!--          <canvas id='canvas2'>Your browswer does not support HTML5 canvas</canvas>-->
 
 
-        <div class="original-div">
+                <div class="original-div">
 
-<!--          <img src="../../component/youtubeExam.PNG"-->
-<!--               class="original-image"-->
-<!--          >-->
+                    <!--          <img src="../../component/youtubeExam.PNG"-->
+                    <!--               class="original-image"-->
+                    <!--          >-->
+<!--                    /Users/chojoonki/WebstormProjects/Web-Server/userLog/1621692c-ee59-4afe-a9ec-55afe63f7dac/answer_det_img.jpg-->
+<!--                    TODO: 정답 영상 detection 이미지-->
+                    <img src=""
+                         id="original-image" >
+                    <!--
+                              <img src="../../component/demo-Image-bound.png"
+                              class="original-image" >-->
 
-            <img src="../../component/original-image-start.png"
-                 class="original-image" >
-<!--
-          <img src="../../component/demo-Image-bound.png"
-          class="original-image" >-->
+                </div>
 
-        </div>
-
-
-        <div class="mine-div">
-            <img src="../../component/my-image-start.png"
-                 class="myCam" >
-        </div>
+<!--                    TODO: 사용자 영상 detection 이미지-->
+                <div class="mine-div">
+                    <img src=""
+                         id="myCam" >
+                </div>
 
 
+                <div>
+                    <img src="../../component/img.png"
+                         class="pointer-img" >
+                </div>
 
-      </div>
 
-  <!--    <div class="rectangle-div1" id="rect1"></div>
-      <div class="rectangle-div2" id="rect2"></div>
-      <div class="rectangle-div3" id="rect3">
-          <div id='result2'></div>
-      </div>
-      <div class="rectangle-div4" id="rect4"></div>
-      <div class="rectangle-div5" id="rect5">
-          <div id='result3'></div>
-      </div>
-      <div class="rectangle-div6" id="rect6"></div>
-      <div class="rectangle-div7" id="rect7">
-          <div id='result4'></div>
-      </div>
-      <div class="rectangle-div8" id="rect8"></div>
-      <div class="rectangle-div9" id="rect9">
-          <div id='result5'></div>
-      </div>
-      <div class="rectangle-div10" id="rect10">
-          <div id='result1'></div>
-      </div>-->
+            </div>
 
-        <div class="next">
-            <img src="../../component/img.png"
-                 class="pointer-img" >
+            <!--    <div class="rectangle-div1" id="rect1"></div>
+                <div class="rectangle-div2" id="rect2"></div>
+                <div class="rectangle-div3" id="rect3">
+                    <div id='result2'></div>
+                </div>
+                <div class="rectangle-div4" id="rect4"></div>
+                <div class="rectangle-div5" id="rect5">
+                    <div id='result3'></div>
+                </div>
+                <div class="rectangle-div6" id="rect6"></div>
+                <div class="rectangle-div7" id="rect7">
+                    <div id='result4'></div>
+                </div>
+                <div class="rectangle-div8" id="rect8"></div>
+                <div class="rectangle-div9" id="rect9">
+                    <div id='result5'></div>
+                </div>
+                <div class="rectangle-div10" id="rect10">
+                    <div id='result1'></div>
+                </div>-->
+
+
+
         </div>
 
     </div>
@@ -104,126 +110,117 @@
         </div>
     </div>
 
+    <script src="../../node_modules/axios/dist/axios.js"></script>
 
     <script>
 
+        axios.defaults.withCredentials = true;
+
         /** detection 할 떄 이미지의 비율과 웹상에서 보여주는 이미지의 비율이 다르니 웹 비율에 맞게 어느정도 보정을 해야함 **/
+        /** API 요청 후 JSON 데이터 갖고 오기 전까지 로딩하고 로딩 후 화면 보여주기 **/
 
-        let boundInfo = {
-            "1": {
-                "x1": 629.73,
-                "y1": 205.25,
-                "w": 132.05,
-                "h": 237.38,
-                "s": 0.91
-            },
-            "2": {
-                "x1": 532.0,
-                "y1": 281.12,
-                "w": 100.69,
-                "h": 305.5,
-                "s": 0.92
-            },
-            "3": {
-                "x1":529.73,
-                "y1": 405.25,
-                "w": 132.05,
-                "h": 237.38,
-                "s": 0.91
-            },
-            "4": {
-                "x1": 632.0,
-                "y1": 331.12,
-                "w": 100.69,
-                "h": 305.5,
-                "s": 0.92
-            }
-        }
+        /** 캡쳐 이미지 렌더링 정답-사용자 **/
+        const answerImagePath = `../../../Web-Server/userLog/${document.cookie.split("=")[1]}/answer_det_img.jpg`
+        var answerImage = document.getElementById("original-image")
 
-        let boundInfo2 = {
-            "1": {
-                "x1": 9.73,
-                "y1": 85.25,
-                "w": 122.05,
-                "h": 97.38,
-                "s": 0.91
-            },
-            "2": {
-                "x1": 102.0,
-                "y1": 51.12,
-                "w": 70.69,
-                "h": 125.5,
-                "s": 0.92
-            }
-        }
-        /** 캔버스 방식 = 실패(why:: 캔버스는 그리는거라 클릭은 안됨) **/
-        /*const setCanvas = (boundInfo,boundInfo2) =>{
-            let canvas = document.getElementById('canvas');
-            let canvas2 = document.getElementById('canvas2');
-            if(canvas.getContext && canvas2.getContext){
-                let ctx = canvas.getContext('2d');
-                let ctx2 = canvas2.getContext('2d');
-
-                let imageObj = new Image();
-                let imageObj2 = new Image();
-
-                imageObj.onload = function(){
-                    canvas.width=360;
-                    canvas.height=203;
-                    ctx.drawImage(imageObj, 0, 0, 360, 203);
+        answerImage.setAttribute('src',answerImagePath)
 
 
+        const userImagePath = `../../../Web-Server/userLog/${document.cookie.split("=")[1]}/user_det_img.jpg`
+        var userImage = document.getElementById("myCam")
 
-                    Object.keys(boundInfo).forEach((ele,index)=>{
-                        ctx.beginPath();
-                        ctx.strokeStyle = "rgb(999,999,999)";
-                        ctx.lineWidth = 3;
-                        console.log(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
-                        // ctx.fillStyle = "rgb(0,0,0)"
-                        ctx.strokeRect(boundInfo[ele]["x1"],boundInfo[ele]["y1"],boundInfo[ele]["w"],boundInfo[ele]["h"]);
-                        // ctx.fill();
-                    });
+        userImage.setAttribute('src',userImagePath)
 
-                };
-                imageObj.src = "../../component/original-image-start.png"
-
-                imageObj2.onload = function(){
-                    canvas2.width=360;
-                    canvas2.height=203;
-                    ctx2.drawImage(imageObj2, 0, 0, 360, 203);
-
-
-
-                    Object.keys(boundInfo2).forEach((ele,index)=>{
-                        ctx2.beginPath();
-                        ctx2.strokeStyle = "rgb(999,999,999)";
-                        ctx2.lineWidth = 3;
-                        console.log(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
-                        // ctx.fillStyle = "rgb(0,0,0)"
-                        ctx2.strokeRect(boundInfo2[ele]["x1"],boundInfo2[ele]["y1"],boundInfo2[ele]["w"],boundInfo2[ele]["h"]);
-                        // ctx.fill();
-                    });
-
-                };
-                imageObj2.src = "../../component/my-image-start.png"
-            }
-        }
-
-        setCanvas(boundInfo,boundInfo2)
-*/
-
-        /** 매칭정보 초기화 (2차원 배열 초기화) **/
-
-        let totalLength = Object.keys(boundInfo).length + Object.keys(boundInfo2).length;
+        /** ----------------------------- **/
 
         // let matchingKey = new Array(totalLength).fill(0).map(()=>new Array(0))
         let matchingKey = []
-        console.log(matchingKey);
+
 
         /** div 생성방식 **/
         let rectDiv = document.getElementById("firstDiv")
 
-        function makeBoundBox(boundInfo,second){
+
+
+        /** bbox JSON 정보와 각 영상 detection 이미지 경로를 가져오는 API ==> 이 API 호출 완료 전까지 화면 띄우기 X **/
+        let answerJsonPath = `../../../Web-Server/userLog/${document.cookie.split("=")[1]}/answer_det_result.json`
+
+        let userJsonPath = `../../../Web-Server/userLog/${document.cookie.split("=")[1]}/user_det_result.json`
+
+        const ratios = {
+            "x1": 1.04,
+            "y1": -0.60,
+            "w": -0.30,
+            "h": -0.52,
+            "s": 1
+        };
+
+        // let boundInfo;
+
+        fetch(answerJsonPath)
+            .then(response => {
+                return response.json();
+            })
+            .then(json => {
+                const boundInfo = applyRatios(json, ratios);
+                console.log(boundInfo);
+
+                // makeBoundBox(boundInfo,false,"red");
+            });
+
+        // console.log(boundInfo);
+        let boundInfo = {
+            "1": {
+                "x1": 450.0941,
+                "y1": 358.5201,
+                "w": 233.5435,
+                "h": 387.5737,
+                "s": 0.9122
+            }
+        }
+        // console.log(boundInfo3)
+        let boundInfo2 = {
+            "1": {
+                "x1": 529.73,
+                "y1": 855.25,
+                "w": 502.05,
+                "h": 437.38,
+                "s": 0.91
+            }
+        }
+        // let id = youtubeURL.split("=");
+        // 원본 영상 이미지 가져오기
+        // console.log(document.cookie.split("=")[1]);
+
+
+
+        /** div 생성방식 **/
+        // let rectDiv = document.getElementById("firstDiv")
+
+        function applyRatios(originalJson, ratios) {
+            const newJson = JSON.parse(JSON.stringify(originalJson));
+
+            for (const key in originalJson) {
+                for (const subKey in originalJson[key]) {
+                    newJson[key][subKey] *= ((subKey === 's' ? 0 : ratios[subKey]));
+                }
+            }
+
+            return newJson;
+        }
+
+        function chunk(data = [], size = 1) {
+            const arr = [];
+
+            for (let i = 0; i < data.length; i += size) {
+                arr.push(data.slice(i, i + size));
+            }
+
+            return arr;
+        }
+
+
+        function makeBoundBox(boundInfo,second,color){
             Object.keys(boundInfo).forEach((ele,index)=>{
 
                 let boundingBox = document.createElement("div");
@@ -242,6 +239,8 @@
                 boundingBox.style.boxSizing = "border-box"
                 boundingBox.style.border = "10px solid #d9d9d9"
                 boundingBox.style.cursor = "pointer"
+
+                console.log(boundingBox);
 
                 rectDiv.appendChild(boundingBox);
 
@@ -263,61 +262,17 @@
 
                     matchingKey.push(key[1])
 
-                    rect1.style.border = '10px solid var(--color-red)';
+                    rect1.style.border = '10px solid '+ `${color}`;
                     console.log(matchingKey)
+
+
+
                 });
             })
         }
 
-        makeBoundBox(boundInfo,false)
-        makeBoundBox(boundInfo2,true)
-
-        // 저장한 전체 데이터 2차원 배열로 묶기
-        if(matchingKey.length === totalLength){
-            let k = 0;
-            for(let i=0;i<totalLength;i++){
-                matchingKey[k].push([f])
-            }
-        }
-
-        /**
-         해야할 일
-         1. 매칭 데이터 2차원배열로 변환해서 백엔드에 전달해주기
-         2. 백엔드에서는 전달받은 데이터를 AI서버 측으로 전달해주기
-         **/
-
-
-
-
-
-        /**
-         position: absolute;
-         top: 640px;
-         left: 193px;
-         background-color: var(--color-gray-200);
-         border: 10px solid #d9d9d9;
-         box-sizing: border-box;
-         width: 173px;
-         height: 228px;
-         cursor: pointer;
-         * **/
-
-        // let rect1 = document.getElementById("rect1")
-        //
-        // rect1.addEventListener("click", function (e) {
-        //     // 각각의 바운딩 박스를 매칭
-        //     console.log(rect1.className)
-        //     rect1.style.border = '10px solid var(--color-red)';
-        // });
-
-      /*  let rect2 = document.getElementById("rect2");
-        rect2.addEventListener("click", function (e) {
-            // 각각의 바운딩 박스를 매칭
-            console.log(rect2.className)
-            rect2.style.border = '10px solid #00b2ff';
-
-        });*/
-
+        makeBoundBox(boundInfo,false,"red")
+        makeBoundBox(boundInfo2,true,"blue")
 
         const open = (result) => {
             document.querySelector(".modal").classList.remove("hidden");
@@ -433,8 +388,23 @@
 
         document.querySelector("#close").addEventListener("click", close);
 
-        nextPage.addEventListener("click",()=>{
-            location.href = "../result/index.html"
+        nextPage.addEventListener("click",async ()=> {
+            matchingKey = await chunk(matchingKey, 2)
+            let result = {
+                data : matchingKey
+            }
+
+            console.log(JSON.stringify(result));
+
+            await fetch("http://localhost:3000/index/matching-data", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json', //>??????????????? anjsep
+                },
+                body: JSON.stringify(result)
+
+                // location.href = "../result/index.html"
+            })
         })
 
     </script>

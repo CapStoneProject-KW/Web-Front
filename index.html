@@ -26,22 +26,51 @@
       <div class="rectangle-div2" id="rectangle"><b style="font-size: xx-large">업로드</b></div>
     </div>
 
+    <script src="node_modules/axios/dist/axios.js"></script>
     <script>
+
+      axios.defaults.withCredentials = true; // axios를 사용해서 쿠키값을 보내줄 때, default 설정을 true 하면 쿠키값을 자동으로 보내준다.
+
+      window.onload = function(){
+        fetch("http://localhost:3000/",{
+          method : "GET",
+        }).then((response)=> {
+          if (response.ok) {
+            // console.log(response.json()); //first consume it in console.log
+            return response.json()
+          }
+        }).then((data)=>{
+          console.log(data.result)
+          document.cookie = `uuid=${data.result}; path=/;`;
+          return data.result
+        }).catch((error)=> console.warn(error))
+
+      }
+
+      console.log(document.cookie)
+
+
 
 
       const sendURL = async () =>{
         let youtubeURL = document.querySelector(".rectangle-input").value;
         let id = youtubeURL.split("=");
         await localStorage.setItem("id",id[1]);
-        let data = {url:youtubeURL}
+        // let data = {url:youtubeURL}
         /** fetch로 POST 요청할 때 body는 stringify 해서 JSON을 직렬화해서 보낼 것 **/
-        await fetch("http://localhost:3000/index/video",{
+        /*await fetch("http://localhost:3000/index/video",{
           method : "POST",
           headers: {
             'Content-Type': 'application/json',
+            Cookie : `uuid=${data.result}`
           },
-          body :JSON.stringify(data)
+          body :JSON.stringify(data),
+          credentials: "same-origin",
         });
+*/
+        await axios.post("http://localhost:3000/index/video",{
+          url : youtubeURL
+        })
 
       }
 

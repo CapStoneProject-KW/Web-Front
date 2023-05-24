@@ -68,9 +68,11 @@
   </body>
 
 <!--    <script src="http://www.youtube.com/player_api"></script>-->
-
+    <script src="../../node_modules/axios/dist/axios.js"></script>
     <script>
 
+
+        axios.defaults.withCredentials = true;
 
       let ellipse1 = document.getElementById("ellipse1");
       let record = document.getElementById("recordBtn")
@@ -112,64 +114,6 @@
       var done = false;
 
 
-/*
-        /!** MediaStream을 매개변수로 MediaRecorder 생성자를 호출 **!/
-      const startRecording = () => {
-          if (mediaStream) {
-              const options = { mimeType: 'video/webm;codecs=vp9' };
-              const newRecorder = new MediaRecorder(mediaStream, options);
-
-              newRecorder.start();
-
-              /!** 전달받는 데이터를 처리하는 이벤트 핸들러 등록 **!/
-              newRecorder.ondataavailable = function(event){
-                  if(event.data && event.data.size > 0){
-                      mediaData.push(event.data);
-                  }
-              }
-          }
-
-
-      };
-
-        /!** 녹화 중지 이벤트 핸들러 **!/
-      const stopRecording = () => {
-          if (mediaRecorder) {
-              mediaRecorder.stop();
-              const recordedBlobs = new Blob(mediaData, {
-                  type: 'video/webm'
-              });
-              console.log('recoredeblobs');
-              console.log(recordedBlobs);
-
-              const file = new File([recordedBlobs], 'recordedVideo3.webm', {
-                  type: 'video/webm'
-              });
-              console.log('file');
-              console.log(file);
-              let formData = new FormData();
-              formData.append('video', file);
-              for (let value of formData.values()) {
-                  console.log(value);
-              }
-              try {
-
-                  fetch("http://localhost:3000/index/upload",{
-                      method : "POST",
-                      headers: {
-                          "Content-Type": "multipart/form-data",
-                      },
-                      body : formData
-                  })
-
-                  console.log('Video successfully uploaded');
-              } catch (err) {
-                  console.error(err);
-              }
-          }
-      };*/
-
-
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 //width&height를 설정할 수 있으나, 따로 css영역으로 뺐다.
@@ -208,17 +152,8 @@
                         clearInterval(intervalID);
                         document.querySelector('.timer').innerHTML = ""
                         event.target.playVideo();
-
+                        VideoCaptureStart();
                     }, 3000);
-
-
-
-                    /** 12초 있다가 자동으로 다음 화면으로 넘어가기 => 시연영상에서 썻던 것 **/
-                    /*setTimeout(function(){
-                        location.href="../sendBackEnd/index.html"
-                    },12000)*/
-
-
 
 
                 });
@@ -267,12 +202,14 @@
 
                   try {
 
-                      fetch("http://localhost:3000/index/upload",{
-                          method : "POST",
-                          /*headers: {
-                              "Content-Type": "multipart/form-data",
-                          },*/
-                          body : formData
+                      axios.post("http://localhost:3000/index/upload",formData,{
+                          headers: {
+                          "Content-Type": "multipart/form-data", // 헤더에 이 부분을 추가해야함
+                          }
+                      }
+                      ).then((response)=>{
+                          console.log(response);
+                          location.href = "../matchPerson/index.html"
                       })
 
                       console.log('Video successfully uploaded');
@@ -283,6 +220,7 @@
                   // 이벤트 실행 시에 서버로 파일 POST
 
                   console.log("video capture end");
+                  // location.href = "../matchPerson/index.html"
               }
 
               videoRecorder.start();
@@ -298,19 +236,15 @@
 
 
         function onPlayerStateChange(event) {
-        if (event.data === YT.PlayerState.PLAYING && !done) {
-          done = true;
-          //플레이어가 재생중일 때 작성한 동작이 실행된다.
-            VideoCaptureStart();
+            if (event.data === YT.PlayerState.PLAYING && !done) {
+                done = true;
+                //플레이어가 재생중일 때 작성한 동작이 실행된다.
 
-        }
-
-            /** 12초 이후 녹화 중지 **/
-            setTimeout(function(){
+            } else if (event.data === YT.PlayerState.ENDED && done) {
                 stopRecording();
-            },194000)
 
-    }
+            }
+        }
 
 
 
